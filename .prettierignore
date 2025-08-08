@@ -1,0 +1,30 @@
+# Ignore dependencies
+node_modules
+
+# Ignore build output
+build
+dist
+out
+.cache
+.temp
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore config files
+.prettierignore
+.gitignore
+
+# Ignore JSON data files
+*.json
+
+# Ignore Markdown & docs (optional)
+*.md
+docs
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
