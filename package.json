@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": " nodemon index.js "
+    "dev": " nodemon src/index.js "
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AbuakarCodes/Backend-course.git"
@@ -17,8 +18,7 @@
   },
   "homepage": "https://github.com/AbuakarCodes/Backend-course#readme",
   "devDependencies": {
-    "nodemon": "^3.1.10",
-    "prettier": "^3.6.2"
+    "nodemon": "^3.1.10"
   },
   "dependencies": {
     "dotenv": "^17.2.1",
