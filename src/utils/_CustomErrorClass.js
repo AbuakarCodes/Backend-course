@@ -14,4 +14,4 @@ class custom_Error extends Error {
     }
 }
 
-export{CustomElementRegistry}
+export{custom_Error}

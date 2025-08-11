@@ -1,9 +1,9 @@
 class standardApi_Response {
-    constructor(statusCose, data, Message = "Something Went Wrong") {
+    constructor(statusCose,  Message = "Something Went Wrong", data) {
         this.statusCose = statusCose
-        this.data = data
         this.Message = Message
         this.success = statusCose < 400
+        this.data = data
     }
 }
 export { standardApi_Response }
