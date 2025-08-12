@@ -1,5 +1,9 @@
 import { v2 as cloudinary } from 'cloudinary';
+import dotenv from "dotenv";
+dotenv.config();
+
 import fs from "fs"
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNARY_NAME,
@@ -10,13 +14,14 @@ cloudinary.config({
 async function cloudinary_FileUplod(localPath) {
     try {
         if (!localPath) return null
-        const cloudaniryResponse = await cloudinary.uploader.upload(localPath, { resource_type: 'auto' })
+        const cloudinaryResponse = await cloudinary.uploader.upload(localPath, { resource_type: 'auto' })
         console.log("File ahs Sucessfully Uploded on cloudinary");
-        return cloudaniryResponse
+        // as fle is  uploded so delete it, we dont need some checky file on our server
+        fs.unlinkSync(localPath)
+        return cloudinaryResponse
 
     } catch (error) {
-        // as fle is not uplode so delete it, we dont need some checky file on our server
-        fs.unlink(localPath)
+        console.log("file deleting error", error)
         return null
     }
 }
