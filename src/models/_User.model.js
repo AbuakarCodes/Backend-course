@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
 
 const UserSchema = new Schema({
@@ -44,40 +44,43 @@ const UserSchema = new Schema({
     }
 }, { timestamps: true });
 
-
+// Hash password before save
 UserSchema.pre("save", async function (next) {
-    if (!this.isModified("passWord")) return next()
-    this.passWord = await bcrypt(this.passWord, 10)
-    next()
-})
+    if (!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+});
 
-UserSchema.methods.isPasswordCorrect = async function (passWord) {
-    return await bcrypt.compare(this.passWord, passWord)
-}
+// Compare password
+UserSchema.methods.isPasswordCorrect = async function (password) {
+    return await bcrypt.compare(password, this.password);
+};
 
-UserSchema.methods.genrateAccessTokens = function () {
-    return JWT.sign({
-        _id: this._id,
-        email:this.email,
-        userName:this.userName,
-        fullname: this.fullname
-    },
+// Generate Access Token
+UserSchema.methods.generateAccessToken = function () {
+    return JWT.sign(
+        {
+            _id: this._id,
+            email: this.email,
+            userName: this.userName,
+            fullname: this.fullname
+        },
         process.env.ACCESS_TOKEN_SECRETE,
         {
-            expiresIn: ACCESS_TOKEN_EXPAIRY
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
-    )
-}
+    );
+};
 
-UserSchema.methods.genrateRefreshTokens = function () {
-    return JWT.sign({
-        _id: this._id
-    },
-        process.env.REFRESH_TOKEN_SECRETE,
+// Generate Refresh Token
+UserSchema.methods.generateRefreshToken = function () {
+    return JWT.sign(
+        { _id: this._id },
+        process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: REFRESH_TOKEN_EXPAIR
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
-    )
-}
+    );
+};
 
-export const User = mongoose.model("user", UserSchema);
+export const User = mongoose.model("User", UserSchema);
