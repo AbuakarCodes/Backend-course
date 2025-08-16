@@ -12,7 +12,7 @@ const logoutUser = requestError_Handler(async (req, res, next) => {
     const options = {
         httpOnly: true,
         secure: true, 
-        // sameSite: "strict"
+        sameSite: "strict"
     };
 
     return res

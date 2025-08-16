@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken"
 import { requestError_Handler } from "../utils/_RequestWraper.js"
 import { custom_Error } from "../utils/_CustomErrorClass.js"
 import { User } from "../models/_User.model.js"
-import {AccessToken} from "../utils/_GeneratingRefreshAndAccessTokens.js"
 
 const AuthUser = requestError_Handler(async (req, res, next) => {
     try {
@@ -16,7 +15,7 @@ const AuthUser = requestError_Handler(async (req, res, next) => {
 
         const LoggedInUser = await User.findById(decodedToken._id);
         if (!LoggedInUser) throw new custom_Error(404, "User not found");
- 
+
         req.LoggedInUser = LoggedInUser;
         next();
     } catch (error) {
@@ -25,4 +24,4 @@ const AuthUser = requestError_Handler(async (req, res, next) => {
     }
 });
 
-export { AuthUser }
+export { AuthUser } 

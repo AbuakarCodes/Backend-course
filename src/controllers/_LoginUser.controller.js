@@ -6,9 +6,9 @@ import { standardApi_Response } from "../utils/_ApiResponseClass.js";
 
 const loginUser = requestError_Handler(async (req, res, next) => {
     const { email, password, username } = req.body
-    if (!email || !password) throw new custom_Error(400, "Email or password is requied")
+    if (!email && !password) throw new custom_Error(400, "Email or password is requied")
 
-    const UserExisit = await User.findOne({ $or: [{ email }, { username }] })
+    const UserExisit = await User.findOne({ $and: [{ email }, { username }] })
     if (!UserExisit) throw new custom_Error(400, "User doesnot exist")
 
     const passwordCorrect = await UserExisit.isPasswordCorrect(password)
