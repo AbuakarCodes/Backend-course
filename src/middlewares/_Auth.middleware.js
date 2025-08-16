@@ -8,7 +8,10 @@ import { User } from "../models/_User.model.js"
 const AuthUser = requestError_Handler(async (req, res, next) => {
     try {
         const token = req.cookies?.AccessToken || req.header("Authorization")?.replace("Bearer ", "");
-        if (!token) throw new custom_Error(401, "Unauthorized request");
+        if (!token) {
+            console.log(req.cookies)
+            throw new custom_Error(401, "Unauthorized request")
+        }
 
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRETE);
         if (!decodedToken) throw new custom_Error(401, "Invalid access token");
