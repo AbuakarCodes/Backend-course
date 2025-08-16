@@ -15,7 +15,7 @@ async function cloudinary_FileUplod(localPath) {
     try {
         if (!localPath) return null
         const cloudinaryResponse = await cloudinary.uploader.upload(localPath, { resource_type: 'auto' })
-        console.log("File ahs Sucessfully Uploded on cloudinary");
+        console.log("File has Sucessfully Uploded on cloudinary");
         // as fle is  uploded so delete it, we dont need some checky file on our server
         fs.unlinkSync(localPath)
         return cloudinaryResponse
