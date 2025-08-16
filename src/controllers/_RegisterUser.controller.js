@@ -2,7 +2,7 @@
 import { requestError_Handler } from "../utils/_RequestWraper.js"
 import { custom_Error } from "../utils/_CustomErrorClass.js"
 import { User } from "../models/_User.model.js"
-import { cloudinary_FileUplod } from "../utils/_Cloudinary,.js"
+import { cloudinary_FileUplod } from "../utils/_Cloudinary.js"
 import { standardApi_Response } from "../utils/_ApiResponseClass.js"
 const registerUser = requestError_Handler(async (req, res, next) => {
 
@@ -46,9 +46,6 @@ const registerUser = requestError_Handler(async (req, res, next) => {
     )
 
     if (!UserHasCreated) throw new custom_Error(500, "User not created")
-
-
-
 
     return res.status(201).json(
         new standardApi_Response(200, "done", UserHasCreated)
