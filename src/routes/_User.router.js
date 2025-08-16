@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { registerUser } from "../controllers/_RegisterUser.controller.js";
 import { upload } from "../middlewares/_MulterConfigue.middileware.js";
-import {loginUser} from "../controllers/_LoginUser.controller.js"
+import { loginUser } from "../controllers/_LoginUser.controller.js"
+import { logoutUser } from "../controllers/_LogoutUser.controller.js";
+import { AuthUser } from "../middlewares/_Auth.middleware.js";
 
 const UserRouter = Router()
 UserRouter.post("/register", upload.fields([
@@ -16,6 +18,7 @@ UserRouter.post("/register", upload.fields([
 ]), registerUser)
 
 UserRouter.post("/login", loginUser)
+UserRouter.post("/logout", AuthUser, logoutUser)
 
 
 export { UserRouter }

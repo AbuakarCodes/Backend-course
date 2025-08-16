@@ -1,10 +1,12 @@
 import { User } from "../models/_User.model.js"
 import { custom_Error } from "./_CustomErrorClass.js"
+
+let  AccessToken
 const genratingRefreshAndAccessTokens = async (UserId) => {
     try {
         const userDB = await User.findById(UserId)
-        const AccessToken = await userDB.generateRefreshToken()
-        const RefreshToken = await userDB.generateAccessToken()
+        AccessToken = await userDB.generateAccessToken()
+        const RefreshToken = await userDB.generateRefreshToken()
         userDB.refreshToken = RefreshToken
         await userDB.save({ validateDeforeSave: false })
         return { AccessToken, RefreshToken }
@@ -14,4 +16,4 @@ const genratingRefreshAndAccessTokens = async (UserId) => {
     }
 
 }
-export { genratingRefreshAndAccessTokens }
+export { genratingRefreshAndAccessTokens, AccessToken }  

@@ -3,7 +3,6 @@ import { custom_Error } from "../utils/_CustomErrorClass.js";
 import { requestError_Handler } from "../utils/_RequestWraper.js";
 import { genratingRefreshAndAccessTokens } from "../utils/_GeneratingRefreshAndAccessTokens.js"
 import { standardApi_Response } from "../utils/_ApiResponseClass.js";
-import bcrypt from "bcrypt"
 
 const loginUser = requestError_Handler(async (req, res, next) => {
     const { email, password, username } = req.body
